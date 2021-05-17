@@ -10,6 +10,14 @@ body, html {
     line-height: 1.5;
 }
 
+#main {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #708090;
+}
+
 #title {
     font-size: 2rem;
     text-align: center;
