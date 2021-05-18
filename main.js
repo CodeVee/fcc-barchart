@@ -6,9 +6,4 @@ const dataset = [12, 31, 22, 17, 25, 18, 29, 14, 9];
       .append("div")
       .attr("class", "bar")
       .style("height", (d) => (d + "px")) 
-
-      var overlay = d3
-  .select('#barchart')
-  .append('div')
-  .attr('class', 'overlay')
-  .style('opacity', 0);
+      
