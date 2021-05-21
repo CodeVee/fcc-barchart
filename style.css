@@ -18,6 +18,17 @@ body, html {
     background-color: #708090;
 }
 
+.wrapper {
+    background-color: #fff;
+}
+
 #title {
     font-size: 2rem;
+}
+
+.bar {
+    width: 1px;
+    margin: 1px;
+    display: inline-block;
+    background-color: #33adff;
 }
