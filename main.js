@@ -6,14 +6,10 @@ const height = 500;
 fetch(endpoint)
 .then(response => response.json())
 .then(data => {
-  console.log(data.data[0]);
   const dset = data.data;
-  // d3.select("#barchart").selectAll("div")
-  //     .data(dset)
-  //     .enter()
-  //     .append("div")
-  //     .attr("class", "bar")
-  //     .style("height", (d) => (d[1] / 100 + "px"));
+  const scale = d3.scaleLinear();
+  const output = scale(50);
+
 
   const svg = d3.select("#barchart")
       .append("svg")
@@ -37,13 +33,13 @@ fetch(endpoint)
       .attr("data-date", d => d[0])
       .text(d => d[0])
 
-  svg.selectAll("text")
-      .data(dataset)
-      .enter()
-      .append("text")
-      .text(d => d[0])
-      .attr("x", (d, i) => i * 3)
-      .attr("y", d => height - (d[1]/50) -3)
+  // svg.selectAll("text")
+  //     .data(dset)
+  //     .enter()
+  //     .append("text")
+  //     .text(d => d[0])
+  //     .attr("x", (d, i) => i * 3)
+  //     .attr("y", d => height - (d[1]/50) -3)
 
 })
 
