@@ -20,15 +20,16 @@ body, html {
 
 .wrapper {
     background-color: #fff;
+    width: 90rem;
+    height: 55rem;
+    padding: 1rem 2rem;
 }
 
 #title {
     font-size: 2rem;
+    text-align: center;
 }
 
-.bar {
-    width: 1px;
-    margin: 1px;
-    display: inline-block;
-    background-color: #33adff;
+.bar:hover {
+    background-color: #fff;
 }
