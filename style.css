@@ -31,5 +31,5 @@ body, html {
 }
 
 .bar:hover {
-    background-color: #fff;
+    fill: #fff;
 }
