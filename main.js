@@ -18,8 +18,12 @@ fetch(endpoint)
   .domain([minX, maxX])
   .range([padding, width - padding]);
 
-const yScale = d3.scaleLinear()
-  .domain([0, d3.max(dataset, (d) => d[1])])
+  const gdps = dataset.map(set => set[1]);
+  const minY = d3.min(gdps);
+  const maxY = d3.max(gdps);
+
+  const yScale = d3.scaleLinear()
+  .domain([0, maxY])
   .range([height - padding, padding]);
 
   const svg = d3.select("#barchart")
