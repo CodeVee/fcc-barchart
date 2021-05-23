@@ -14,7 +14,7 @@ fetch(endpoint)
   const maxX = d3.max(dates);
 
   const padding = 20;
-  const xScale = d3.scaleLinear()
+  const xScale = d3.scaleTime()
   .domain([minX, maxX])
   .range([padding, width - padding]);
 
