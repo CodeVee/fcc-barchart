@@ -9,12 +9,13 @@ fetch(endpoint)
   const scale = d3.scaleLinear();
   const output = scale(50);
 
-  const minX = d3.min(dataset, (d) => d[1]);
-  const maxX = d3.max(dataset, (d) => d[1]);
+  const dates = dataset.map(set => new Date(set[0]));
+  const minX = d3.min(dates);
+  const maxX = d3.max(dates);
 
   const padding = 20;
   const xScale = d3.scaleLinear()
-  .domain([0, d3.max(dataset, (d) => d[1])])
+  .domain([minX, maxX])
   .range([padding, width - padding]);
 
 const yScale = d3.scaleLinear()
