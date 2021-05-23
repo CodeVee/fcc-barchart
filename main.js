@@ -1,6 +1,6 @@
 const endpoint = 'https://raw.githubusercontent.com/freeCodeCamp/ProjectReferenceData/master/GDP-data.json';
 const width = 800;
-const height = 500;
+const height = 400;
   
 fetch(endpoint)
 .then(response => response.json())
@@ -16,7 +16,7 @@ fetch(endpoint)
   const padding = 20;
   const xScale = d3.scaleTime()
   .domain([minX, maxX])
-  .range([padding, width - padding]);
+  .range([0, width]);
 
   const gdps = dataset.map(set => set[1]);
   const minY = d3.min(gdps);
@@ -24,22 +24,23 @@ fetch(endpoint)
 
   const yScale = d3.scaleLinear()
   .domain([0, maxY])
-  .range([height - padding, padding]);
+  .range([height, 0]);
 
   const svg = d3.select("#barchart")
       .append("svg")
-      .attr("width", width)
-      .attr("height", height);
+      .attr("width", width + 100)
+      .attr("height", height + 50);
 
   svg.selectAll("rect")
       .data(dataset)
       .enter()
       .append("rect")
-      .attr("x", d => xScale(d[1]))
-      .attr("y", d => height - xScale(d[1]))
+      .attr("x", d => xScale(d[0]))
+      .attr("y", d => yScale(new Date(d[1])))
       .attr("width", 1.5)
-      .attr("height", d => xScale(d[1]))
+      .attr("height", d => yScale(d[1]))
       .attr("fill", "navy")
+      .style("margin", "2px")
       .attr("class", "bar")
       .attr("data-date", d => d[0])
       .attr("data-gdp", d => d[1])
@@ -50,13 +51,13 @@ fetch(endpoint)
 
       const xAxis = d3.axisBottom(xScale);
       svg.append("g")
-         .attr("transform", "translate(0, " + (height - padding) + ")")
+         .attr("transform", "translate(60, 400)")
          .call(xAxis);
 
          const yAxis = d3.axisLeft(yScale);
 
          svg.append("g")
-            .attr("transform", "translate(" + (height - padding) + ", 0)")
+            .attr("transform", "translate(60, 0)")
             .call(yAxis);
          
       
