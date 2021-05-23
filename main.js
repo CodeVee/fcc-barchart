@@ -12,6 +12,7 @@ fetch(endpoint)
   const dates = dataset.map(set => new Date(set[0]));
   const minX = d3.min(dates);
   const maxX = d3.max(dates);
+  maxX.setMonth(maxX.getMonth() + 3)
 
   const padding = 20;
   const xScale = d3.scaleTime()
@@ -26,38 +27,42 @@ fetch(endpoint)
   .domain([0, maxY])
   .range([height, 0]);
 
+  const linearScale = d3.scaleLinear().domain([0, maxY]).range([0, height]);
+
+  const mainGdps = gdps.map(item => linearScale(item));
+
   const svg = d3.select("#barchart")
       .append("svg")
       .attr("width", width + 100)
       .attr("height", height + 50);
 
   svg.selectAll("rect")
-      .data(dataset)
+      .data(mainGdps)
       .enter()
       .append("rect")
-      .attr("x", d => xScale(d[0]))
-      .attr("y", d => yScale(new Date(d[1])))
-      .attr("width", 1.5)
-      .attr("height", d => yScale(d[1]))
-      .attr("fill", "navy")
-      .style("margin", "2px")
+      .attr("x", (d, i) => xScale(dates[i]))
+      .attr("y", d => height - d)
+      .attr("width", width / 250)
+      .attr("height", d => d)
+      .attr("fill", "lightblue")
       .attr("class", "bar")
-      .attr("data-date", d => d[0])
-      .attr("data-gdp", d => d[1])
+      .attr('transform', 'translate(60, 30)')
+      .attr("data-date", (d, i) => dataset[i][0])
+      .attr("data-gdp", (d, i) => dataset[i][1])
       .append("title")
       .attr("id", "tooltip")
-      .attr("data-date", d => d[0])
-      .text(d => d[0])
+      .attr("data-date", (d, i) => dataset[i][0])
+      .text((d, i) => dataset[i][0])
 
       const xAxis = d3.axisBottom(xScale);
       svg.append("g")
-         .attr("transform", "translate(60, 400)")
+         .attr("transform", "translate(60, 430)")
          .call(xAxis);
 
          const yAxis = d3.axisLeft(yScale);
 
          svg.append("g")
-            .attr("transform", "translate(60, 0)")
+            .attr("transform", "translate(60, 30)")
             .call(yAxis);
          
       
