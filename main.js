@@ -57,12 +57,14 @@ fetch(endpoint)
       const xAxis = d3.axisBottom(xScale);
       svg.append("g")
          .attr("transform", "translate(60, 430)")
+         .attr("id", "x-axis")
          .call(xAxis);
 
          const yAxis = d3.axisLeft(yScale);
 
          svg.append("g")
             .attr("transform", "translate(60, 30)")
+            .attr("id", "y-axis")
             .call(yAxis);
          
       
