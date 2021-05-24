@@ -31,6 +31,12 @@ fetch(endpoint)
 
   const mainGdps = gdps.map(item => linearScale(item));
 
+  const tooltip = d3
+            .select('#barchart')
+            .append('div')
+            .attr('id', 'tooltip')
+            .style('opacity', 0);
+
   const svg = d3.select("#barchart")
       .append("svg")
       .attr("width", width + 100)
@@ -49,6 +55,14 @@ fetch(endpoint)
       .attr('transform', 'translate(60, 30)')
       .attr("data-date", (d, i) => dataset[i][0])
       .attr("data-gdp", (d, i) => dataset[i][1])
+      .on('mouseover', (e, d) => {
+        const idx = mainGdps.indexOf(d);
+        tooltip.transition().duration(200).style('opacity', 0.9);
+        tooltip.attr('data-date', dataset[idx][0]);
+      })
+      .on('mouseout', () => {
+        tooltip.transition().duration(200).style('opacity', 0);
+      })
       .append("title")
       .attr("id", "tooltip")
       .attr("data-date", (d, i) => dataset[i][0])
@@ -66,16 +80,6 @@ fetch(endpoint)
             .attr("transform", "translate(60, 30)")
             .attr("id", "y-axis")
             .call(yAxis);
-         
-      
-
-  // svg.selectAll("text")
-  //     .data(dset)
-  //     .enter()
-  //     .append("text")
-  //     .text(d => d[0])
-  //     .attr("x", (d, i) => i * 3)
-  //     .attr("y", d => height - (d[1]/50) -3)
 
 })
 
