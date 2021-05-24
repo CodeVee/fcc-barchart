@@ -6,21 +6,17 @@ fetch(endpoint)
 .then(response => response.json())
 .then(data => {
   const dataset = data.data;
-  const scale = d3.scaleLinear();
-  const output = scale(50);
 
   const dates = dataset.map(set => new Date(set[0]));
   const minX = d3.min(dates);
   const maxX = d3.max(dates);
   maxX.setMonth(maxX.getMonth() + 3)
 
-  const padding = 20;
   const xScale = d3.scaleTime()
   .domain([minX, maxX])
   .range([0, width]);
 
   const gdps = dataset.map(set => set[1]);
-  const minY = d3.min(gdps);
   const maxY = d3.max(gdps);
 
   const yScale = d3.scaleLinear()
@@ -28,7 +24,6 @@ fetch(endpoint)
   .range([height, 0]);
 
   const linearScale = d3.scaleLinear().domain([0, maxY]).range([0, height]);
-
   const mainGdps = gdps.map(item => linearScale(item));
 
   const tooltip = d3
@@ -68,19 +63,18 @@ fetch(endpoint)
       .attr("data-date", (d, i) => dataset[i][0])
       .text((d, i) => dataset[i][0])
 
-      const xAxis = d3.axisBottom(xScale);
-      svg.append("g")
-         .attr("transform", "translate(60, 430)")
-         .attr("id", "x-axis")
-         .call(xAxis);
+  const xAxis = d3.axisBottom(xScale);
+  svg.append("g")
+      .attr("transform", "translate(60, 430)")
+      .attr("id", "x-axis")
+      .call(xAxis);
 
-         const yAxis = d3.axisLeft(yScale);
+  const yAxis = d3.axisLeft(yScale);
 
-         svg.append("g")
-            .attr("transform", "translate(60, 30)")
-            .attr("id", "y-axis")
-            .call(yAxis);
-
+  svg.append("g")
+    .attr("transform", "translate(60, 30)")
+    .attr("id", "y-axis")
+    .call(yAxis);
 })
 
 
